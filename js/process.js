@@ -1,0 +1,112 @@
+Framework7.prototype.plugins.von = function (app, params) {
+    if (!params) return;
+
+    return {
+        hooks: {
+            appInit: function () {
+            	var _this = this;
+
+				$$('#cal_btn').on('click',function (){
+					   app.confirm('<div style=background:#FFcccc>Are you sure about these inputs?</div>', '<font color=pink>Confirmation:</font>', function () {
+       					 // app.alert('You clicked Ok button');
+    				
+
+					var numlist=$$("input[data-cmd='list']").val().split(',');
+					
+
+
+					$.each(numlist,function (a,b)
+					{
+						numlist[a] = parseInt(numlist[a]);
+						var mean = _this.findmean(numlist);
+						var median = _this.findMedian(numlist);
+						var mode = _this.findMode(numlist);
+
+                      
+						var content = "<div style=background:#FFcccc> <font color=gray> <b> <center> Numbers Entered:</br>"+numlist+"</font> <font color=black><br /> <br/>  Mean: "+mean+" <br/> Median: "+median+" <br/> Mode:"+mode+"</center> </font> </b> </div> ";
+						$$("#display").html(content);
+
+
+                    
+
+					console.log(numlist);
+					console.log("Mean: "+mean);
+					console.log("Median: "+median);
+					console.log("Mode: "+mode);
+					
+					});
+        			
+				
+					
+					
+
+
+
+
+					// document.write("<br/>");
+					// document.write("<br/>");
+					// document.write("<br/>");
+					// document.write("<br/>");					
+					
+					// document.write("<center> " +mean+" is the MEAN Number <br/><br/>");
+
+					 
+					// document.write(median+" is the MEDIAN Number <br/></br>");
+
+					 
+					// document.write(mode+" is the MODE Number <br/>");
+					// document.write("<br/>");
+					// document.write("<br/>");
+					// // document.write("<a class='alert-text' href='index.html'> Return </a>");
+					// document.write("<p style='font-size:30px;text-decoration:none;'> <a href='index.html' button type='button'>Return</a></p>");
+				});
+					   });
+
+            },
+            findmean: function(num){
+		 		var y = 0;
+		 		$.each(num,function(a,b){
+		 			y = y + b;
+		 		})
+		 		return y/num.length;
+		 	},
+			findMedian: function(num) {
+		        var middle = Math.floor(num.length/2);
+
+		        if(num.length % 2)
+		            return num[middle];
+		        else
+		            return (num[middle-1] + num[middle]) / 2.0;
+	        },
+	        findMode: function(nummode){
+				var fmode = [];
+				var maxnum = nummode[0], maxCount = 1;
+				for(var i = 0; i < nummode.length; i++){
+	                var num = nummode[i];
+	                 if(fmode[num] == null)	
+		                fmode[num] = 1;
+		                fmode[num]++;  
+	                if(fmode[num] > maxCount){
+		                maxnum = num;
+		                maxCount = fmode[num];
+		            }
+			    }
+			    return maxnum;
+			}
+        }
+    };
+};
+
+ var $$ = Dom7;
+ var app = new Framework7({
+	von:true
+});
+
+    $$('.alert-text').on('click', function () {
+    app.alert('Maganda ang gumawa neto!', 'ABEGAIL C. CELESTE'), function () {}
+});
+
+$$('.open-about').on('click', function () {
+  app.popup('.popup-about');
+});
+
